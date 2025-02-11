@@ -33,6 +33,18 @@
                 display: block;
             }
         }
+        .orientation-message {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -43,9 +55,30 @@
         <button id="jumpButton">↑</button>
         <button id="rightButton">→</button>
     </div>
+    <div class="orientation-message" id="orientationMessage">
+        Please rotate your device to landscape to play the game.
+    </div>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
+        const orientationMessage = document.getElementById('orientationMessage');
+
+        function checkOrientation() {
+            if (window.innerWidth < window.innerHeight) {
+                orientationMessage.style.display = 'block';
+                canvas.style.display = 'none';
+                document.querySelector('.mobile-controls').style.display = 'none';
+            } else {
+                orientationMessage.style.display = 'none';
+                canvas.style.display = 'block';
+                document.querySelector('.mobile-controls').style.display = 'block';
+            }
+        }
+
+        window.addEventListener('resize', checkOrientation);
+        window.addEventListener('orientationchange', checkOrientation);
+
+        checkOrientation();
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
