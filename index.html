@@ -30,7 +30,8 @@
         }
         @media (max-width: 768px) {
             .mobile-controls {
-                display: block;
+                display: flex;
+                justify-content: center;
             }
         }
         .orientation-message {
@@ -71,7 +72,7 @@
             } else {
                 orientationMessage.style.display = 'none';
                 canvas.style.display = 'block';
-                document.querySelector('.mobile-controls').style.display = 'block';
+                document.querySelector('.mobile-controls').style.display = 'flex';
             }
         }
 
@@ -271,12 +272,24 @@
             }
         }
 
+        function handleTouchMove(e) {
+            const touch = e.target.id;
+            if (touch === 'leftButton') {
+                player.dx = -player.speed;
+            } else if (touch === 'rightButton') {
+                player.dx = player.speed;
+            }
+        }
+
         document.getElementById('leftButton').addEventListener('touchstart', handleTouchStart);
         document.getElementById('rightButton').addEventListener('touchstart', handleTouchStart);
         document.getElementById('jumpButton').addEventListener('touchstart', handleTouchStart);
 
         document.getElementById('leftButton').addEventListener('touchend', handleTouchEnd);
         document.getElementById('rightButton').addEventListener('touchend', handleTouchEnd);
+
+        document.getElementById('leftButton').addEventListener('touchmove', handleTouchMove);
+        document.getElementById('rightButton').addEventListener('touchmove', handleTouchMove);
 
         function drawScore() {
             ctx.fillStyle = 'black';
