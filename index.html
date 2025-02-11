@@ -15,11 +15,34 @@
             display: block;
             background: #87CEEB;
         }
+        .mobile-controls {
+            display: none;
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+        }
+        .mobile-controls button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 0 10px;
+        }
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: block;
+            }
+        }
     </style>
 </head>
 
 <body>
     <canvas id="gameCanvas"></canvas>
+    <div class="mobile-controls">
+        <button id="leftButton">←</button>
+        <button id="jumpButton">↑</button>
+        <button id="rightButton">→</button>
+    </div>
     <script>
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
@@ -196,6 +219,31 @@
                 player.dx = 0;
             }
         });
+
+        function handleTouchStart(e) {
+            const touch = e.target.id;
+            if (touch === 'leftButton') {
+                player.dx = -player.speed;
+            } else if (touch === 'rightButton') {
+                player.dx = player.speed;
+            } else if (touch === 'jumpButton') {
+                jump();
+            }
+        }
+
+        function handleTouchEnd(e) {
+            const touch = e.target.id;
+            if (touch === 'leftButton' || touch === 'rightButton') {
+                player.dx = 0;
+            }
+        }
+
+        document.getElementById('leftButton').addEventListener('touchstart', handleTouchStart);
+        document.getElementById('rightButton').addEventListener('touchstart', handleTouchStart);
+        document.getElementById('jumpButton').addEventListener('touchstart', handleTouchStart);
+
+        document.getElementById('leftButton').addEventListener('touchend', handleTouchEnd);
+        document.getElementById('rightButton').addEventListener('touchend', handleTouchEnd);
 
         function drawScore() {
             ctx.fillStyle = 'black';
