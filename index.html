@@ -238,6 +238,9 @@
         document.addEventListener('keydown', (e) => {
             if (e.code === 'Space') {
                 jump();
+            
+            if (e.code === 'ArrowUp') {
+                jump();
             }
             if (e.code === 'ArrowRight') {
                 player.dx = player.speed;
