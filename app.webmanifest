@@ -22,5 +22,12 @@
   "name": "MAKEITOUT",
   "short_name": "MIO",
   "start_url": "https://elitegamercj.github.io/MAKEITOUT/index.html",
-  "description": "MAKEITOUT GAME"
+  "description": "MAKEITOUT GAME",
+  "id": "/MAKEITOUT",
+  "scope": "/MAKEITOUT",
+  "categories": [
+    "entertainment",
+    "games",
+    "kids"
+  ]
 }
